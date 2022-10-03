@@ -1,0 +1,21 @@
+{
+    "name": "casper/exercice3",
+    "type": "project",
+    "require": {
+        "fzaninotto/faker": "^1.9"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Casper\\Exercice3\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "albertaljeanpierre",
+            "email": "albertaljeanpierre@gmail.com"
+        }
+    ]
+}
