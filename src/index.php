@@ -20,7 +20,8 @@ $listePersonnes =   PersonneManager::create(10);
  // var_dump($listePersonnes);
 
 ?>
-<h1>Liste de données générée à la volée</h1>
+<h1>Générer des données de la librairie fzaninotto\faker</h1>
+<h2>Liste de données générée à la volée</h2>
 <table>
     <tr>
         <th>Nom</th>
@@ -57,13 +58,18 @@ $personneManager = new PersonneManager(Connexion::getConnexion());
 // Lecture des informations en base
 $listePersonnesDb = $personneManager->readAll();
 
-echo "<h1>Liste de données provenant de la base</h1>";
+echo "<h2>Liste de données provenant de la base</h2>";
 foreach ($listePersonnesDb as $personne) {
     echo $personne;
 }
 
-echo "<h1>Une donnée précise provenant de la base</h1>";
+echo "<h2>Une donnée précise provenant de la base</h2>";
 echo $personneManager->readById(4);
+
+// Suppression d'une entrée en base
+$personneManager->delete(5);
+
+
 ?>
 
 

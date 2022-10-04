@@ -133,4 +133,15 @@ class PersonneManager
             $data['societe'],
         );
     }
+
+    public function delete($id)
+    {
+        $sqlQuery = 'DELETE FROM faker WHERE id= :id';
+        $Statement = $this->getConnexion()->prepare($sqlQuery);
+        $Statement->execute([
+            'id' => $id
+        ]);
+
+    }
+
 }
