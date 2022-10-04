@@ -7,7 +7,7 @@ require '../vendor/autoload.php';
 //require_once '../src/manager/PersonneManager.php';
 
 use Casper\Exercice3\manager\PersonneManager;
-
+use Casper\Exercice3\Connexion;
 
 //$faker = Faker\Factory::create('fr_BE');
 //echo $faker->name;
@@ -49,8 +49,9 @@ $listePersonnes =   PersonneManager::create(10);
 $unePersonne = PersonneManager::create(1);
 //dd($unePersonne[0]); // objet personne
 
-PersonneManager::insert($unePersonne[0]);
+$personneManager = new PersonneManager(Connexion::getConnexion());
 
+$personneManager->insert($unePersonne[0]);
 
 ?>
 
