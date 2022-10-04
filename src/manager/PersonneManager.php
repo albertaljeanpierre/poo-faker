@@ -64,7 +64,11 @@ class PersonneManager
     }
 
 
-     public function insert(Personne $personne) {
+    /**
+     * Fonction d'insertion des données en base
+     * @param Personne $personne Les données d'une personne à insérer
+     */
+    public function insert(Personne $personne) {
         $stmt = $this->getConnexion()->prepare(
             'INSERT INTO faker SET nom=:nom, prenom=:prenom, adresse=:adresse, codePostal=:codePostal, pays=:pays, societe=:societe'
         );
@@ -76,7 +80,26 @@ class PersonneManager
         $stmt->bindValue(':societe', $personne->getSociete());
 
         $stmt->execute();
-
     }
 
+    public function readAll()
+    {
+        $personnes = [];
+        $query = $this->getConnexion()->query(
+            "SELECT * FROM faker"
+        );
+
+        while ($data = $query->fetch(\PDO::FETCH_ASSOC)) {
+            $personnes[] = new Personne(
+                 $data['nom'],
+                 $data['prenom'],
+                 $data['adresse'],
+                 $data['codePostal'],
+                 $data['pays'],
+                 $data['societe']
+            );
+        }
+
+        return $personnes;
+    }
 }

@@ -20,6 +20,7 @@ $listePersonnes =   PersonneManager::create(10);
 // var_dump($listePersonnes);
 
 ?>
+<h1>Liste de données générée à la volée</h1>
 <table>
     <tr>
         <th>Nom</th>
@@ -50,9 +51,16 @@ $unePersonne = PersonneManager::create(1);
 //dd($unePersonne[0]); // objet personne
 
 $personneManager = new PersonneManager(Connexion::getConnexion());
+// insertion des données en base
+// $personneManager->insert($unePersonne[0]);
 
-$personneManager->insert($unePersonne[0]);
+// Lecture des informations en base
+$listePersonnesDb = $personneManager->readAll();
 
+echo "<h1>Liste de données provenant de la base</h1>";
+foreach ($listePersonnesDb as $personne) {
+    echo $personne;
+}
 ?>
 
 

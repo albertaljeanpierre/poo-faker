@@ -150,5 +150,8 @@ class Personne
         $this->pays = $pays;
         $this->societe = $societe;
     }
-
+ public function __toString()
+ {
+      return $this->getNom() . " , " . $this->getPrenom() . " , " .$this->getAdresse() . " , " .$this->getCodePostal() . " , " .$this->getPays() . " , " .$this->getSociete() ." <br> ";
+ }
 }
