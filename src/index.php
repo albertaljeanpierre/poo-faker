@@ -69,6 +69,12 @@ echo $personneManager->readById(4);
 // Suppression d'une entrée en base
 $personneManager->delete(5);
 
+$personneAModifier = $personneManager->readById(2);
+dump($personneAModifier);
+
+$personneAModifier->setPrenom('proserpine');
+$personneAModifier->setNom('Durant');
+$personneManager->update($personneAModifier);
 
 ?>
 

@@ -134,6 +134,10 @@ class PersonneManager
         );
     }
 
+    /**
+     * Méthode de suppression de donnée en base
+     * @param $id l'identifiant en base que l'on désire supprimer
+     */
     public function delete($id)
     {
         $sqlQuery = 'DELETE FROM faker WHERE id= :id';
@@ -144,4 +148,23 @@ class PersonneManager
 
     }
 
+    /**
+     * Méthode qui met à jour les données d'une personne
+     * @param Personne $personne Objet personne qui est mis à jour
+     */
+    public function update(Personne $personne)
+    {
+        $sqlQuery = 'UPDATE faker SET nom=:nom, prenom=:prenom, adresse=:adresse, codePostal=:codePostal, pays=:pays, societe=:societe WHERE id=:id';
+        $Statement = $this->getConnexion()->prepare($sqlQuery);
+        $Statement->execute([
+            'id' => $personne->getId(),
+            'nom' => $personne->getNom(),
+            'prenom' => $personne->getPrenom(),
+            'adresse' => $personne->getAdresse(),
+            'codePostal' => $personne->getAdresse(),
+            'pays' => $personne->getPays(),
+            'societe' => $personne->getSociete()
+        ]);
+
+    }
 }
