@@ -10,6 +10,8 @@ namespace Casper\Exercice3\Entity;
  */
 class Personne
 {
+    protected int $id = 0;
+
     /**
      * @var string
      */
@@ -34,6 +36,14 @@ class Personne
      * @var string
      */
     protected string $societe;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return mixed
@@ -133,6 +143,7 @@ class Personne
 
     /**
      * Personne constructor.
+     * @param int $id
      * @param string $nom
      * @param string $prenom
      * @param string $adresse
@@ -140,9 +151,9 @@ class Personne
      * @param string $pays
      * @param string $societe
      */
-    public function __construct(string $nom, string $prenom, string $adresse, string $codePostal, string $pays, string $societe)
+    public function __construct(int $id, string $nom, string $prenom, string $adresse, string $codePostal, string $pays, string $societe)
     {
-
+        $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->adresse = $adresse;
@@ -150,8 +161,9 @@ class Personne
         $this->pays = $pays;
         $this->societe = $societe;
     }
- public function __toString()
- {
-      return $this->getNom() . " , " . $this->getPrenom() . " , " .$this->getAdresse() . " , " .$this->getCodePostal() . " , " .$this->getPays() . " , " .$this->getSociete() ." <br> ";
- }
+
+    public function __toString()
+    {
+        return $this->getId() . ") ". $this->getNom() . " , " . $this->getPrenom() . " , " . $this->getAdresse() . " , " . $this->getCodePostal() . " , " . $this->getPays() . " , " . $this->getSociete() . " <br> ";
+    }
 }

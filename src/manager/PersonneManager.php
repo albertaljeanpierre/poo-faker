@@ -6,7 +6,7 @@ namespace Casper\Exercice3\manager;
 
 use Casper\Exercice3\Entity\Personne;
 use Faker\Factory;
- use Casper\Exercice3\Connexion;
+use Casper\Exercice3\Connexion;
 
 
 /**
@@ -15,12 +15,12 @@ use Faker\Factory;
  */
 class PersonneManager
 {
-    private  $connexion;
+    private $connexion;
 
     /**
      * @return mixed
      */
-      public function getConnexion()
+    public function getConnexion()
     {
         return $this->connexion;
     }
@@ -32,9 +32,10 @@ class PersonneManager
     {
         $this->connexion = $connexion;
     }
+
     public function __construct($connexion)
     {
-         $this->connexion = $connexion;
+        $this->connexion = $connexion;
     }
 
     /**
@@ -51,6 +52,7 @@ class PersonneManager
         for ($i = 1; $i <= $nombre; $i++) {
 
             $personnes[] = new Personne(
+                0,
                 $faker->lastName,
                 $faker->firstName,
                 $faker->address,
@@ -65,10 +67,11 @@ class PersonneManager
 
 
     /**
-     * Fonction d'insertion des données en base
+     * Méthode d'insertion des données en base
      * @param Personne $personne Les données d'une personne à insérer
      */
-    public function insert(Personne $personne) {
+    public function insert(Personne $personne)
+    {
         $stmt = $this->getConnexion()->prepare(
             'INSERT INTO faker SET nom=:nom, prenom=:prenom, adresse=:adresse, codePostal=:codePostal, pays=:pays, societe=:societe'
         );
@@ -82,6 +85,10 @@ class PersonneManager
         $stmt->execute();
     }
 
+    /**
+     * Méthode qui lit toutes les données en base
+     * @return array Tableau d"objet Personne
+     */
     public function readAll()
     {
         $personnes = [];
@@ -91,15 +98,39 @@ class PersonneManager
 
         while ($data = $query->fetch(\PDO::FETCH_ASSOC)) {
             $personnes[] = new Personne(
-                 $data['nom'],
-                 $data['prenom'],
-                 $data['adresse'],
-                 $data['codePostal'],
-                 $data['pays'],
-                 $data['societe']
+                $data['id'],
+                $data['nom'],
+                $data['prenom'],
+                $data['adresse'],
+                $data['codePostal'],
+                $data['pays'],
+                $data['societe']
             );
         }
-
         return $personnes;
+    }
+
+    /**
+     * Méthode qui affiche une personne en particulier de la base
+     * @param int $id l'id de la base de donnée
+     * @return Personne Les données d'une personne
+     */
+    public function readById(int $id)
+    {
+        $sqlQuery = 'SELECT id, nom, prenom, adresse, codePostal, pays , societe FROM faker WHERE id = :id';
+        $Statement = $this->getConnexion()->prepare($sqlQuery);
+        $Statement->execute([
+            'id' => $id
+        ]);
+        $data = $Statement->fetch(\PDO::FETCH_ASSOC);
+        return new Personne(
+            $data['id'],
+            $data['nom'],
+            $data['prenom'],
+            $data['adresse'],
+            $data['codePostal'],
+            $data['pays'],
+            $data['societe'],
+        );
     }
 }

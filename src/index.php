@@ -17,7 +17,7 @@ use Casper\Exercice3\Connexion;
 //$personnes = $personneManager->create(3);
 
 $listePersonnes =   PersonneManager::create(10);
-// var_dump($listePersonnes);
+ // var_dump($listePersonnes);
 
 ?>
 <h1>Liste de données générée à la volée</h1>
@@ -48,7 +48,7 @@ $listePersonnes =   PersonneManager::create(10);
 <?php
 
 $unePersonne = PersonneManager::create(1);
-//dd($unePersonne[0]); // objet personne
+//dd( $unePersonne[0] ); // objet personne
 
 $personneManager = new PersonneManager(Connexion::getConnexion());
 // insertion des données en base
@@ -61,6 +61,9 @@ echo "<h1>Liste de données provenant de la base</h1>";
 foreach ($listePersonnesDb as $personne) {
     echo $personne;
 }
+
+echo "<h1>Une donnée précise provenant de la base</h1>";
+echo $personneManager->readById(4);
 ?>
 
 
